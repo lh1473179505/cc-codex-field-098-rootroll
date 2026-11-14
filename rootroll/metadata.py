@@ -1,8 +1,8 @@
 """Signed envelopes.
 
-verify_threshold currently counts every verifying signature, even when the
-same keyid appears more than once. Callers should treat a missing envelope
-as a hard failure.
+verify_threshold counts distinct keyids that both verify and belong to the
+role; repeating the same key does not meet a threshold. Callers should
+treat a missing envelope as a hard failure.
 """
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ def verify_threshold(
 ) -> bool:
     payload = signed_payload(envelope)
     allowed = set(keyids)
-    ok = 0
+    ok: set[str] = set()
     for item in envelope.get("signatures") or []:
         if not isinstance(item, dict):
             continue
@@ -36,5 +36,5 @@ def verify_threshold(
         if kid not in allowed or kid not in keys:
             continue
         if check_sig(payload, keys[kid], sig):
-            ok += 1
-    return ok >= threshold
+            ok.add(kid)
+    return len(ok) >= threshold
