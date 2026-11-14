@@ -1,0 +1,1 @@
+{"signatures":[{"keyid":"dk1","sig":"0cd801ad05d6b113f757282f78c9875ccc9b350ed59370e021c3524b2f583b5a"}],"signed":{"expires":"2026-12-01T00:00:00Z","name":"pkg-team","role":"targets","targets":{"packages/team/lib.bin":{"custom":{"version":"2.0"},"hash":"9651e007e8e51808c9f81052580f7a7788e1c7ab33cef112459c9e5bad0bb9d1","length":11}},"version":2}}
